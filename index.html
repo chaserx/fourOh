@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>fourOh</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div class="age"></div>
+
+  <script>
+    function renderAge() {
+      const ageHolder = document.querySelector('.age')
+      const now = new Date;
+      const fourOh = new Date(Date.UTC(2017, 7, 3));
+
+      // JS counts months from 0 to 11. doh.
+      var duration = now - new Date(Date.UTC(1977, 7, 3));
+      var years = duration / 31556900000;
+
+      if(now >= fourOh) {
+        var majorMinor = new Array("40", "000000000");
+        document.querySelector("body").style.filter = "grayscale(100%)";
+      } else {
+        var majorMinor = years.toFixed(9).toString().split('.');
+      }
+      var html = `
+        <h1 class="age-label">AGE</h1>
+        <h2 class="count">${majorMinor[0]}<sup>.${majorMinor[1]}</sup></h2>
+        `
+
+      window.requestAnimationFrame(function(){
+        ageHolder.innerHTML = html;
+      });
+    }
+
+    setInterval(renderAge, 100);
+    renderAge();
+  </script>
+</body>
+</html>
+
